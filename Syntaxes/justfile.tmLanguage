@@ -25,6 +25,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#settings</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#recipeDefinition</string>
 		</dict>
 		<dict>
@@ -42,10 +46,6 @@
 		<dict>
 			<key>include</key>
 			<string>#strings</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#settings</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -85,7 +85,7 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>variable.other.just</string>
+					<string>constant.other.var.just</string>
 				</dict>
 				<key>3</key>
 				<dict>
@@ -487,7 +487,7 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>variable.other.just</string>
+					<string>variable.language.setting.just</string>
 				</dict>
 				<key>3</key>
 				<dict>
