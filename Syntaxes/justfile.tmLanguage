@@ -55,10 +55,6 @@
 			<key>include</key>
 			<string>#functions</string>
 		</dict>
-		<dict>
-			<key>include</key>
-			<string>#keywords</string>
-		</dict>
 	</array>
 	<key>repository</key>
 	<dict>
@@ -103,7 +99,7 @@
 		<key>comments</key>
 		<dict>
 			<key>match</key>
-			<string>#[^!].*</string>
+			<string>#[^!][^$]*(?=$\n?)</string>
 			<key>name</key>
 			<string>comment.line.just</string>
 		</dict>
@@ -150,7 +146,7 @@
 					<key>match</key>
 					<string>[a-zA-Z_][a-zA-Z0-9_-]*</string>
 					<key>name</key>
-					<string>variable.other.just</string>
+					<string>constant.other.var.just</string>
 				</dict>
 			</array>
 		</dict>
@@ -192,7 +188,7 @@
 					<key>match</key>
 					<string>[a-zA-Z_][a-zA-Z0-9_-]*</string>
 					<key>name</key>
-					<string>variable.other.just</string>
+					<string>constant.other.var.just</string>
 				</dict>
 			</array>
 		</dict>
@@ -272,19 +268,6 @@
 				</dict>
 			</array>
 		</dict>
-		<key>keywords</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.just</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>\b(if|else|while)\b</string>
-		</dict>
 		<key>recipeContent</key>
 		<dict>
 			<key>captures</key>
@@ -297,11 +280,13 @@
 			</dict>
 			<key>match</key>
 			<string>^\s+([-@]*)</string>
+			<key>name</key>
+			<string>meta.recipe.content.just</string>
 		</dict>
 		<key>recipeDefinition</key>
 		<dict>
 			<key>begin</key>
-			<string>^(@|_)?([a-zA-Z_][a-zA-Z0-9_-]*)</string>
+			<string>^(@|_)?([a-zA-Z_][a-zA-Z0-9_-]*)\s*</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -316,17 +301,44 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(#.*)?$</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>comment.line.just</string>
-				</dict>
-			</dict>
+			<string>$\n?</string>
+			<key>name</key>
+			<string>meta.recipe.definition.just</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>include</key>
+					<string>#comments</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>:</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.operator.recipe.param-equals.just</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=#)|(?=$)</string>
+					<key>name</key>
+					<string>meta.recipe.dependent-list.just</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>[a-zA-Z_][a-zA-Z0-9_-]*</string>
+							<key>name</key>
+							<string>entity.other.inherited-class.dependency.just</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#dependent_expression</string>
+						</dict>
+					</array>
+				</dict>
 				<dict>
 					<key>begin</key>
 					<string>\G</string>
@@ -344,6 +356,46 @@
 					<string>meta.recipe.param-list.just</string>
 					<key>patterns</key>
 					<array>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.operator.recipe.param.prefix.just</string>
+								</dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>variable.parameter.recipe.param.just</string>
+								</dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.operator.recipe.param-equals.just</string>
+								</dict>
+								<key>4</key>
+								<dict>
+									<key>name</key>
+									<string>constant.other.var.just</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>([\+\*\$])?([a-zA-Z_][a-zA-Z0-9_-]*)\s*(=)\s*([a-zA-Z_][a-zA-Z0-9_-]*)</string>
+							<key>name</key>
+							<string>meta.recipe.param-name.with-default-var.just</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#expression</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#strings</string>
+								</dict>
+							</array>
+						</dict>
 						<dict>
 							<key>begin</key>
 							<string>([\+\*\$])?([a-zA-Z_][a-zA-Z0-9_-]*)\s*(=)</string>
@@ -402,79 +454,7 @@
 						</dict>
 					</array>
 				</dict>
-				<dict>
-					<key>begin</key>
-					<string>:</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>keyword.operator.recipe.param-equals.just</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>(?=#)|(?=$)</string>
-					<key>name</key>
-					<string>meta.recipe.dependent-list.just</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>match</key>
-							<string>[a-zA-Z_][a-zA-Z0-9_-]*</string>
-							<key>name</key>
-							<string>entity.other.inherited-class.dependency.just</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#dependent_expression</string>
-						</dict>
-					</array>
-				</dict>
 			</array>
-		</dict>
-		<key>recipeDefinition_old</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>storage.modifier.just</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.just</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.just</string>
-				</dict>
-				<key>4</key>
-				<dict>
-					<key>name</key>
-					<string>variable.parameter.just</string>
-				</dict>
-				<key>5</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.just</string>
-				</dict>
-				<key>6</key>
-				<dict>
-					<key>name</key>
-					<string>string.interpolated.just</string>
-				</dict>
-				<key>7</key>
-				<dict>
-					<key>name</key>
-					<string>entity.other.inherited-class.dependency.just</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>^(@|_)?([a-zA-Z_][a-zA-Z0-9_-]*)\s*([\+\*\$])?([a-zA-Z0-9_]*)?\s*(=)?\s*([a-zA-Z0-9_-`'"]*):([\sa-zA-Z0-9_-]*).*$</string>
 		</dict>
 		<key>scripts</key>
 		<dict>
