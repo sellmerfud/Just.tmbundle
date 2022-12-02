@@ -71,7 +71,7 @@
 			<key>match</key>
 			<string>^\[(?:private|no-cd|no-exit-message|linux|macos|unix|windows|([^\[]+))\]</string>
 			<key>name</key>
-			<string>storage.type.anotation.just</string>
+			<string>storage.modifier.anotation.just</string>
 		</dict>
 		<key>assignments</key>
 		<dict>
