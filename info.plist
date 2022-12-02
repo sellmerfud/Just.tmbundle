@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>fryyzreshq@tznvy.pbz</string>
+	<key>contactName</key>
+	<string>Curt Sellmer</string>
+	<key>description</key>
+	<string>Bundle Support for the just program.
+
+https://github.com/casey/just
+
+</string>
+	<key>name</key>
+	<string>Just</string>
+	<key>uuid</key>
+	<string>04FAB358-FC0A-4AD2-A718-3DF96368629B</string>
+</dict>
+</plist>

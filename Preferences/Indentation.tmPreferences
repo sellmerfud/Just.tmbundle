@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Indentation</string>
+	<key>scope</key>
+	<string>source.just</string>
+	<key>settings</key>
+	<dict>
+		<key>disableIndentCorrections</key>
+		<true/>
+		<key>increaseIndentPattern</key>
+		<string>^[^\t ]+:</string>
+		<key>indentOnPaste</key>
+		<string>simple</string>
+	</dict>
+	<key>uuid</key>
+	<string>1B14F685-D268-446D-A2DF-EA12ABCE5D1F</string>
+</dict>
+</plist>
