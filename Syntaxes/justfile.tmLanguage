@@ -232,6 +232,10 @@
 				</dict>
 				<dict>
 					<key>include</key>
+					<string>#expressions</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#functions</string>
 				</dict>
 			</array>
@@ -357,6 +361,73 @@
 					<key>patterns</key>
 					<array>
 						<dict>
+							<key>begin</key>
+							<string>(?x:
+                 ([\+\*\$])?([a-zA-Z_][a-zA-Z0-9_-]*)\s*(=)\s
+                 \b(arch|os|os_family|env_var|env_var_or_default|invocation_directory|justfile|justfile_directory|
+                    just_executable|lowercase|quote|replace|trim|trim_end|trim_end_match|trim_end_matches|trim_start|
+                    trim_start_match|trim_start_matches|uppercase|absolute_path|extension|file_name|file_stem|
+                    parent_directory|without_extension|join|clean|path_exists|error|sha256|sha256_file|uuid|capitalize|
+                    uppercamelcase|lowercamelcase|snakecase|kebabcase|shoutysnakecase|titlecase|shoutykebabcase)\b(\())</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.operator.recipe.param.prefix.just</string>
+								</dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>variable.parameter.recipe.param.just</string>
+								</dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.operator.recipe.param-equals.just</string>
+								</dict>
+								<key>4</key>
+								<dict>
+									<key>name</key>
+									<string>entity.name.function.just</string>
+								</dict>
+								<key>5</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.parameter-list.begin.just</string>
+								</dict>
+							</dict>
+							<key>comment</key>
+							<string>Unfortunately we have to duplicate the #function code here</string>
+							<key>end</key>
+							<string>\)</string>
+							<key>endCaptures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.parameter-list.end.just</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>meta.recipe.param-name.with-default-func.just</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#strings</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#expressions</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#functions</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
 							<key>captures</key>
 							<dict>
 								<key>1</key>
@@ -384,17 +455,6 @@
 							<string>([\+\*\$])?([a-zA-Z_][a-zA-Z0-9_-]*)\s*(=)\s*([a-zA-Z_][a-zA-Z0-9_-]*)</string>
 							<key>name</key>
 							<string>meta.recipe.param-name.with-default-var.just</string>
-							<key>patterns</key>
-							<array>
-								<dict>
-									<key>include</key>
-									<string>#expression</string>
-								</dict>
-								<dict>
-									<key>include</key>
-									<string>#strings</string>
-								</dict>
-							</array>
 						</dict>
 						<dict>
 							<key>begin</key>
@@ -418,7 +478,7 @@
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>(?=:)|(?=[a-zA-Z_])</string>
+							<string>(?=:)|(?=[a-zA-Z_]\()</string>
 							<key>name</key>
 							<string>meta.recipe.param-name.with-default.just</string>
 							<key>patterns</key>
@@ -430,6 +490,10 @@
 								<dict>
 									<key>include</key>
 									<string>#strings</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#functions</string>
 								</dict>
 							</array>
 						</dict>
