@@ -21,7 +21,11 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#assignments</string>
+			<string>#alias</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#assignment</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -58,6 +62,36 @@
 	</array>
 	<key>repository</key>
 	<dict>
+		<key>alias</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.modifier.just</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.alias.recipe.just</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.operator.assignment.just</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.recipe.just</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>^(alias)\s+([a-zA-Z_][a-zA-Z0-9_-]*)\s*(:=)\s*([a-zA-Z_][a-zA-Z0-9_-]*)</string>
+			<key>name</key>
+			<string>meta.alias.just</string>
+		</dict>
 		<key>annotations</key>
 		<dict>
 			<key>captures</key>
@@ -73,7 +107,7 @@
 			<key>name</key>
 			<string>storage.modifier.anotation.just</string>
 		</dict>
-		<key>assignments</key>
+		<key>assignment</key>
 		<dict>
 			<key>captures</key>
 			<dict>
@@ -94,7 +128,9 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^(?:(export|alias)\s+)?([a-zA-Z_][a-zA-Z0-9_-]*)\s*(:=)</string>
+			<string>^(?:(export)\s+)?([a-zA-Z_][a-zA-Z0-9_-]*)\s*(:=)</string>
+			<key>name</key>
+			<string>meta.assignment.just</string>
 		</dict>
 		<key>comments</key>
 		<dict>
